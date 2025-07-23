@@ -1,0 +1,1 @@
+print("Bagel is rude.")
