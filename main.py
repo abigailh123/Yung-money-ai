@@ -4,7 +4,7 @@ import os
 # --- Configuration ---
 # IMPORTANT: Store your API key as an environment variable for security.
 # Do not hardcode it directly in the script.
-API_KEY = "AIzaSyCvTqsMsYEQvGQQ3kXisk7dsfIWIsyz72Qho"
+API_KEY = "AIzaSyCvTqsMsYEQvGQQ3kXisk7dsfIWIsyz72Q"
 
 # Configure the generative AI model
 genai.configure(api_key=API_KEY)
