@@ -4,10 +4,7 @@ import os
 # --- Configuration ---
 # IMPORTANT: Store your API key as an environment variable for security.
 # Do not hardcode it directly in the script.
-API_KEY = "AIzaSyCvTqsMsYEQvGQQ3kXisk7dsfIWIsyz72Q"
-
-if not API_KEY:
-    raise ValueError("GEMINI_API_KEY environment variable not set!")
+API_KEY = "AIzaSyCvTqsMsYEQvGQQ3kXisk7dsfIWIsyz72Qho"
 
 # Configure the generative AI model
 genai.configure(api_key=API_KEY)
