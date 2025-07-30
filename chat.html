@@ -1,110 +1,278 @@
-<!DOCTYPE html>
+
+      <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bucks Bunny AI 💸</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lol</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #fef8f5;
-      padding: 20px;
+      overflow: hidden;
+      background-color: #0f2f1d;
+      color: #e0f2e9;
     }
-    #chatbox {
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-    h2 {
+
+    /* Welcome Page */
+    .welcome-page {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      color: #ff6f61;
+      background: linear-gradient(rgba(15,47,29,0.9), rgba(15,47,29,0.9)), url('https://images.unsplash.com/photo-1508385082359-f6443751f2bc?auto=format&fit=crop&w=1400&q=80') no-repeat center center;
+      background-size: cover;
     }
-    .message {
-      margin: 12px 0;
-      padding: 8px 12px;
-      border-radius: 8px;
-      max-width: 80%;
+
+    .welcome-title {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      font-weight: 700;
     }
-    .user {
-      background: #d1f2eb;
-      text-align: right;
-      float: right;
-      clear: both;
+    .welcome-subtitle {
+      font-size: 1.4em;
+      margin-bottom: 1.5em;
     }
-    .bot {
-      background: #f9e79f;
-      text-align: left;
-      float: left;
-      clear: both;
+
+    .btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 15px 35px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+    .btn:hover {
+      background-color: #388e3c;
     }
-    input {
-      width: 70%;
+
+    /* Main App */
+    .main-app {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+      background-color: #0f2f1d;
     }
-    button {
-      background-color: #ff6f61;
+
+    .main-app.active {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 240px;
+      background-color: #1b4a32;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+    }
+
+    .sidebar button {
+      background-color: #4caf50;
       color: white;
       border: none;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #ff4f42;
+    .sidebar button:hover {
+      background-color: #388e3c;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 1em;
+    }
+
+    .response, .homework {
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .dashboard-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .dashboard-box {
+      background-color: #1e5a3a;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .dashboard-box h4 {
+      margin-top: 0;
+      color: #a5e7c6;
+    }
+
+    hr {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 30px 0;
     }
   </style>
 </head>
 <body>
 
-<div id="chatbox">
-  <h2>💬 Bucks Bunny AI</h2>
-  <div id="messages"></div>
-  <input type="text" id="userInput" placeholder="Ask Bucks Bunny about money..." />
-  <button onclick="sendMessage()">Send</button>
-</div>
+  <div class="welcome-page" id="welcomePage">
+    <h1 class="welcome-title">BUNNYBUNNY</h1>
+    <p class="welcome-subtitle">Master your money with smart habits and financial wisdom>"
+    <button class="btn" onclick="enterApp()">Start1button>
+  </div>
 
-<script>
-function sendMessage() {
-  const input = document.getElementById("userInput");
-  const message = input.value.trim();
-  if (!message) return;
+  <div class="main-app" id="mainApp">
+    <div class="sidebar">
+      <h3>📘 Menu</h3>
+      <button onclick="signIn(this)">Sign In</button>
+      <button onclick="logOut()">Log Out</button>
+      <hr />
+      <button onclick="generateMISSION()"MISSION>
+    </div>
 
-  // Display user message
-  const userMsg = document.createElement("div");
-  userMsg.className = "message user";
-  userMsg.textContent = "You: " + message;
-  document.getElementById("messages").appendChild(userMsg);
+    <div class="content">
+      <h1>Smart Finance Assistant</h1>
+      <input type="text" id="userInput" placeholder="Ask about saving, credit, taxes..." />
+      <br><br>
+      <button class="btn" onclick="respond()">Ask</button>
+      <div class="response" id="responseArea"></div>
 
-  // Send message to Flask backend
-  fetch("http://127.0.0.1:5000/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: message })
-  })
-  .then(response => response.json())
-  .then(data => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "message bot";
-    botMsg.textContent = "Bucks Bunny: " + data.response;
-    document.getElementById("messages").appendChild(botMsg);
-  })
-  .catch(() => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "message bot";
-    botMsg.textContent = "Bucks Bunny: Uh oh! I can’t reach the money vault (server). 💔";
-    document.getElementById("messages").appendChild(botMsg);
-  });
+      <hr>
+      <div class="homework" id="homeworkArea"></div>
 
-  input.value = "";
-}
-</script>
+      <div class="dashboard-boxes">
+        <div class="dashboard-box">
+          <h4>💡 Tip of the Day</h4>
+          <p id="tipArea">Always pay yourself first—automate your savings!</p>
+        </div>
+        <div class="dashboard-box">
+          <h4>📈 Investment Idea</h4>
+          <p>Learn about index funds for stable long-term growth.</p>
+        </div>
+        <div class="dashboard-box">
+          <h4>📊 Budget Reminder</h4>
+          <p>Review your spending weekly. Small leaks sink big ships.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    const responses = {
+      saving: "Saving is setting aside money for future use. Tip: Try saving at least 20% of what you earn.",
+      budget: "A budget helps you track your income and expenses. It keeps you in control of your finances.",
+      investing: "Investing can grow your wealth over time. Learn about stocks, bonds, and mutual funds.",
+      credit: "Good credit is important. Always pay your bills on time and keep your balances low.",
+      debt: "Avoid high-interest debt when possible. Try to pay off credit cards in full each month.",
+      bank: "Banks offer services like savings, checking, loans, and more. Choose one with low fees.",
+      interest: "Interest is the cost of borrowing money or the reward for saving it. Compound interest grows faster!",
+      tax: "Taxes are required payments to the government. Understanding them helps you keep more of your income."
+    };
+
+    const hiResponses = [
+      "Hi there! What would you like to learn today?",
+      "Hello! Ready to improve your money skills?",
+      "Hey! Ask me anything about saving, budgeting, or investing!",
+    ];
+
+    const homeworks = [
+      "Track all your expenses for the next 3 days.",
+      "Make a simple monthly budget.",
+      "Write down your financial goals for the year.",
+      "Watch a video about compound interest.",
+      "Learn one new investing term and explain it to someone.",
+    ];
+
+    function enterApp() {
+      document.getElementById("welcomePage").style.display = "none";
+      const app = document.getElementById("mainApp");
+      app.classList.add("active");
+      document.body.style.overflow = "auto";
+    }
+
+    function respond() {
+      const input = document.getElementById("userInput").value.toLowerCase();
+      const responseArea = document.getElementById("responseArea");
+
+      if (!input.trim()) {
+        responseArea.innerText = "Please type a question to get started!";
+        return;
+      }
+
+      if (input.includes("hi") || input.includes("hello")) {
+        responseArea.innerText = hiResponses[Math.floor(Math.random() * hiResponses.length)];
+        return;
+      }
+
+      for (let keyword in responses) {
+        const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+        if (regex.test(input)) {
+          responseArea.innerText = responses[keyword];
+          return;
+        }
+      }
+
+      responseArea.innerText = "Sorry, I don't know that one yet. Try asking about saving, investing, or credit!";
+    }
+
+    function generateHomework() {
+      const task = homeworks[Math.floor(Math.random() * homeworks.length)];
+      document.getElementById("homeworkArea").innerText = "Your Task: " + task;
+    }
+
+    function signIn(button) {
+      alert("Sign in successful! (Simulated)");
+      button.disabled = true;
+      button.innerText = "Signed In";
+    }
+
+    function logOut() {
+      alert("Logged out. Returning to welcome page.");
+      document.getElementById("mainApp").classList.remove("active");
+      document.getElementById("welcomePage").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    window.onload = () => {
+      document.getElementById("welcomePage").style.display = "flex";
+      document.getElementById("mainApp").classList.remove("active");
+      document.body.style.overflow = "hidden";
+    };
+  </script>
 </body>
 </html>
+
+
+
+
+
