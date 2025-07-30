@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bucks Bunny AI 💸</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fef8f5;
+      padding: 20px;
+    }
+    #chatbox {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #ff6f61;
+    }
+    .message {
+      margin: 12px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+    .user {
+      background: #d1f2eb;
+      text-align: right;
+      float: right;
+      clear: both;
+    }
+    .bot {
+      background: #f9e79f;
+      text-align: left;
+      float: left;
+      clear: both;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    input {
+      width: 70%;
+    }
+    button {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff4f42;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chatbox">
+  <h2>💬 Bucks Bunny AI</h2>
+  <div id="messages"></div>
+  <input type="text" id="userInput" placeholder="Ask Bucks Bunny about money..." />
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  // Display user message
+  const userMsg = document.createElement("div");
+  userMsg.className = "message user";
+  userMsg.textContent = "You: " + message;
+  document.getElementById("messages").appendChild(userMsg);
+
+  // Send message to Flask backend
+  fetch("http://127.0.0.1:5000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: message })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.textContent = "Bucks Bunny: " + data.response;
+    document.getElementById("messages").appendChild(botMsg);
+  })
+  .catch(() => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.textContent = "Bucks Bunny: Uh oh! I can’t reach the money vault (server). 💔";
+    document.getElementById("messages").appendChild(botMsg);
+  });
+
+  input.value = "";
+}
+</script>
+
+</body>
+</html>

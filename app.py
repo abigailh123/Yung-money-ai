@@ -24,10 +24,7 @@ while True:
         break
 
     try:
-        response = chat.send_message(user_input, stream=True)
-        print("Yung Money Ai: ", end="")
-        for chunk in response:
-            print(chunk.text, end="", flush=True)
-        print()  # Newline after the full response
+        response = chat.send_message(user_input)
+        print(f"Yung Money Ai: {response.text}")
     except Exception as e:
         print(f"An error occurred: {e}")
