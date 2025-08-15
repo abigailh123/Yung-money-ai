@@ -8,3 +8,4 @@ pydantic
 chardet
 fastapi
 uvicorn
+scrapingant-client

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from langchain_community.document_loaders import CSVLoader
+from langchain_community.document_loaders import CSVLoader, ScrapingAntLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import MongoDBAtlasVectorSearch
@@ -13,11 +13,30 @@ documents = []
 
 for filename in os.listdir(data_folder):
     if filename.endswith(".csv"):
-        loader = CSVLoader(
+        csv_loader = CSVLoader(
             file_path=os.path.join(data_folder, filename), encoding="utf-8"
         )
-        documents.extend(loader.load())
+        documents.extend(csv_loader.load())
         print(f"Loaded {filename}")
+
+scrapingant_loader = ScrapingAntLoader(
+    [
+        "https://www.eccb-centralbank.org/",
+        "https://www.sknanb.com/",
+        "https://www.thebankofnevis.com/",
+        "https://www.republicbankstkitts.com/",
+        "https://skccu.com/",
+        "https://firstfederalcreditunion.com/",
+        "https://aspire.gov.kn/",
+        "https://www.cibccaribbean.com/"
+    ],
+    api_key=os.getenv("SCRAPINGANT_API_KEY"),
+    continue_on_failure=True,
+)
+
+documents.extend(scrapingant_loader.load())
+
+print(f"Loaded scraped websites")
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 docs = text_splitter.split_documents(documents)
