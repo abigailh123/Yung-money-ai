@@ -65,7 +65,7 @@ export default function Home() {
               <Logo className="h-24 w-24 sm:h-32 sm:w-32" />
             </div>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Hey, I'm{' '}
+              Hey, I&apos;m{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-yellow-light">
                 BucksBunny
               </span>
@@ -135,7 +135,7 @@ export default function Home() {
               Ready to level up your money game?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Pick your starting point and let's get this money! 💪
+              Pick your starting point and let&apos;s get this money! 💪
             </p>
           </div>
           
@@ -143,21 +143,21 @@ export default function Home() {
             <Link href="/journey/getting-started" className="block p-8 glass-ui card-hover-glow text-center">
               <h3 className="text-2xl font-bold mb-4">Just Getting Started</h3>
               <p className="text-gray-600 dark:text-gray-300">
-                New to money? Perfect! We'll start with the basics and get you confident with your first savings account.
+                New to money? Perfect! We&apos;ll start with the basics and get you confident with your first savings account.
               </p>
             </Link>
             
             <Link href="/journey/first-job" className="block p-8 glass-ui card-hover-glow text-center">
               <h3 className="text-2xl font-bold mb-4">First Job Vibes</h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Got your first paycheck coming? Let's make sure you know how to handle it like a pro!
+                Got your first paycheck coming? Let&apos;s make sure you know how to handle it like a pro!
               </p>
             </Link>
             
             <Link href="/journey/college" className="block p-8 glass-ui card-hover-glow text-center">
               <h3 className="text-2xl font-bold mb-4">College Bound</h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Planning for college or already there? I'll help you manage money while hitting the books.
+                Planning for college or already there? I&apos;ll help you manage money while hitting the books.
               </p>
             </Link>
           </div>

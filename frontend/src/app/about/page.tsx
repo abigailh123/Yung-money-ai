@@ -23,13 +23,13 @@ export default function AboutPage() {
               Who is BucksBunny? 🐰
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              Awrite! I'm BucksBunny, your AI financial coach who knows the ins and outs of money in 
+              Awrite! I&apos;m BucksBunny, your AI financial coach who knows the ins and outs of money in 
               St. Kitts and Nevis. I speak like a local because I understand our culture, our banks, 
               and our unique financial landscape.
             </p>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               From understanding the ASPIRE Programme to knowing which banks offer the best student 
-              accounts, I'm here to make money topics fun, relevant, and stress-free for teenagers 
+              accounts, I&apos;m here to make money topics fun, relevant, and stress-free for teenagers 
               in the federation.
             </p>
           </div>
@@ -64,8 +64,8 @@ export default function AboutPage() {
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 text-center max-w-3xl mx-auto">
             To make financial education accessible, fun, and relevant for every teenager in 
-            St. Kitts & Nevis. Whether you're just starting to think about money or you're 
-            ready to plan for your future, I'm here to guide you every step of the way.
+            St. Kitts & Nevis. Whether you&apos;re just starting to think about money or you&apos;re 
+            ready to plan for your future, I&apos;m here to guide you every step of the way.
           </p>
         </div>
 
