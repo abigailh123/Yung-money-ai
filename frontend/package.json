@@ -1,31 +1,38 @@
 {
-  "name": "bucksbunny-ai",
-  "version": "0.0.0",
+  "name": "yung-money-ai-frontend",
+  "version": "0.1.0",
   "private": true,
-  "description": "This contains everything you need to run your app locally.",
-  "license": "ISC",
-  "author": "",
-  "type": "module",
-  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
     "@google/genai": "^1.12.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "lucide-react": "^0.541.0",
+    "next": "15.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.7.1",
     "remark-gfm": "^4.0.1",
-    "uuid": "^11.1.0"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "^1.9.12",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.0",
+    "tailwindcss": "^4",
+    "tw-animate-css": "^1.3.7",
+    "typescript": "^5"
   }
 }

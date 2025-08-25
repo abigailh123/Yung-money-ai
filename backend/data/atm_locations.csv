@@ -1,0 +1,16 @@
+type,id,name,lat,lng,feeLevel,address
+atm,1,SKNANB (St. Kitts-Nevis-Anguilla National Bank),17.2965,-62.7236,free,"The Circus, Basseterre"
+atm,2,Republic Bank,17.295,-62.7225,low,"Fort Street, Basseterre"
+atm,3,CIBC FirstCaribbean,17.2978,-62.721,high,"Bay Road, Basseterre"
+atm,4,The Bank of Nevis (BON),17.2945,-62.7248,free,"Cayon Street, Basseterre"
+atm,5,Rams Supermarket ATM,17.3001,-62.72,high,"Bay Road, Basseterre"
+atm,6,SKNANB,17.288,-62.695,free,"Zenway Boulevard, Frigate Bay"
+atm,7,Royal St. Kitts Hotel ATM,17.2915,-62.6895,high,Frigate Bay Road
+atm,8,St. Kitts Marriott Resort ATM,17.2865,-62.685,high,858 Frigate Bay Road
+atm,9,SKNANB Airport ATM,17.3114,-62.7185,free,Inside RLB Airport Arrivals Hall
+atm,10,The Bank of Nevis (BON) HQ,17.139,-62.6245,free,"Main Street, Charlestown"
+atm,11,SKNANB (Nevis Branch),17.1405,-62.623,free,"Prince William Street, Charlestown"
+atm,12,Alexandra Hospital ATM,17.145,-62.6255,high,"Government Road, Charlestown"
+atm,13,CIBC FirstCaribbean,17.1388,-62.6252,high,"Main Street, Charlestown"
+atm,14,BON (Vance Amory Airport),17.204,-62.59,free,Vance W. Amory International Airport
+atm,15,Four Seasons Resort ATM,17.118,-62.639,high,"Pinney's Beach, Nevis"
