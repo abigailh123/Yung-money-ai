@@ -1,3 +1,4 @@
+# Importing all the necessary modules
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -13,31 +14,38 @@ from langchain_core.output_parsers import PydanticOutputParser
 from tools.budget import create_budget_tool
 from utils.db import embeddings as embeddings_collection
 
+# Load the environment variables
 load_dotenv()
 
+# Create the FastAPI app
 app = FastAPI()
 
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        "http://localhost:3020",
+        "http://127.0.0.1:3020",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Create the OpenAI LLM
 llm = ChatOpenAI(model="gpt-4o")
 
+# Create the OpenAI embeddings  
 embeddings = OpenAIEmbeddings()
 
+# Get the vector store
 vector_store = MongoDBAtlasVectorSearch(
     embedding=embeddings,
     collection=embeddings_collection,
     index_name="vector_index",
 )
 
+# Create the prompt
 prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -76,7 +84,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-
+# Create the retrieve tool
 @tool
 def retrieve(query: str) -> str:
     """Retrieve information related to a query."""
@@ -84,6 +92,7 @@ def retrieve(query: str) -> str:
     return retrieved_docs
 
 
+# Create the agent
 tools = [retrieve, create_budget_tool]
 
 agent = create_openai_tools_agent(
@@ -98,6 +107,7 @@ agent_executor = AgentExecutor.from_agent_and_tools(
     verbose=True,
 )
 
+# Create the agent with history
 agent_with_history = RunnableWithMessageHistory(
     agent_executor,
     lambda session_id: MongoDBChatMessageHistory(
@@ -122,7 +132,7 @@ class ChatRequest(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
-
+# Create the chat endpoint
 @app.post("/chat")
 async def chat(req: ChatRequest):
     session_id = req.session_id or "testing"
@@ -138,7 +148,7 @@ async def chat(req: ChatRequest):
         return {"output": response, "session_id": session_id}
     return response
 
-
+# Create the history endpoint
 @app.get("/history")
 async def history(session_id: str):
     history_store = MongoDBChatMessageHistory(
@@ -160,8 +170,8 @@ async def history(session_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=6000)
+    
+    uvicorn.run(app, host="127.0.0.1", port=5020)
 
     while True:
         query = input("Query: ")

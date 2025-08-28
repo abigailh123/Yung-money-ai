@@ -11,6 +11,7 @@ load_dotenv()
 data_folder = "./data"
 documents = []
 
+# Load CSV files
 for filename in os.listdir(data_folder):
     if filename.endswith(".csv"):
         csv_loader = CSVLoader(
@@ -19,6 +20,7 @@ for filename in os.listdir(data_folder):
         documents.extend(csv_loader.load())
         print(f"Loaded {filename}")
 
+# Scrape the websites
 scrapingant_loader = ScrapingAntLoader(
     [
         "https://www.eccb-centralbank.org/",
@@ -38,13 +40,17 @@ documents.extend(scrapingant_loader.load())
 
 print(f"Loaded scraped websites")
 
+# Split the text into chunks
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 docs = text_splitter.split_documents(documents)
 
+# Create OpenAI embedding
 embeddings = OpenAIEmbeddings()
 
+# Delete the current data in the database to prevent duplicates
 embeddings_collection.delete_many({})
 
+# Store the data to MongoDB
 vector_store = MongoDBAtlasVectorSearch.from_documents(
     documents=docs,
     collection=embeddings_collection,

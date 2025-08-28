@@ -3,19 +3,17 @@ module.exports = {
     {
       name: 'yung-money-backend',
       script: 'uvicorn',
-      args: 'src.main:app --host 0.0.0.0 --port 6000 --workers 2',
+      args: 'src.main:app --host 0.0.0.0 --port 5020 --workers 2',
       cwd: './backend',
       interpreter: 'python3',
       env: {
         NODE_ENV: 'production',
-        PYTHONPATH: './src',
         // Add your environment variables here
         // DATABASE_URL: 'your_mongodb_connection_string',
         // OPENAI_API_KEY: 'your_openai_api_key',
       },
       env_production: {
         NODE_ENV: 'production',
-        PYTHONPATH: './src',
       },
       instances: 1,
       exec_mode: 'fork',
@@ -37,14 +35,14 @@ module.exports = {
       cwd: './frontend',
       env: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        PORT: 3020,
         // Add your frontend environment variables here
         // API_KEY: 'your_google_gemini_api_key',
         // NEXT_PUBLIC_API_URL: 'http://localhost:6000',
       },
       env_production: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        PORT: 3020,
       },
       instances: 1,
       exec_mode: 'fork',
@@ -60,17 +58,4 @@ module.exports = {
       min_uptime: '10s'
     }
   ],
-
-  deploy: {
-    production: {
-      user: 'your-username',
-      host: 'your-vps-ip',
-      ref: 'origin/main',
-      repo: 'git@github.com:yourusername/yung-money-ai.git',
-      path: '/var/www/yung-money-ai',
-      'pre-deploy-local': '',
-      'post-deploy': 'npm install --legacy-peer-deps && cd backend && pip install -r requirements.txt && cd ../frontend && npm run build && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': ''
-    }
-  }
 };
