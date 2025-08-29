@@ -7,6 +7,7 @@ import { fetchChatHistory, sendChatMessage, type BackendHistoryMessage } from '.
 import { ChatInput, ChatInputTextArea, ChatInputSubmit } from '../../components/ui/chat-input';
 import { ChatMessage as ChatMessageComponent } from '../../components/chat-message';
 import { SuggestionPills } from '../../components/suggestion-pills';
+import { ttsService } from '../../services/ttsService';
 
 const initialSuggestions = [
   "How do I open my first SKNANB savings account?",
@@ -88,6 +89,13 @@ export default function ChatPage() {
     }
   }, [messages]);
 
+  // Cleanup TTS cache on component unmount
+  useEffect(() => {
+    return () => {
+      ttsService.clearCache();
+    };
+  }, []);
+
   const canSend = useMemo(() => input.trim().length > 0 && !isSending && !!sessionId, [input, isSending, sessionId]);
 
   const handleSend = useCallback(async () => {
@@ -126,6 +134,17 @@ export default function ChatPage() {
 
   const handleSuggestionClick = useCallback((suggestion: string) => {
     setInput(suggestion);
+  }, []);
+
+  const handlePlayAudio = useCallback(async (text: string) => {
+    try {
+      await ttsService.playAudio(text);
+    } catch (error) {
+      console.error('Error playing audio:', error);
+      setError('Failed to play audio. Please try again.');
+      // Clear error after 3 seconds
+      setTimeout(() => setError(''), 3000);
+    }
   }, []);
 
   const currentSuggestions = messages.length > 0 ? followUpSuggestions : initialSuggestions;
@@ -218,6 +237,7 @@ export default function ChatPage() {
                     hour: '2-digit', 
                     minute: '2-digit' 
                   })}
+                  onPlayAudio={message.sender === 'ai' ? handlePlayAudio : undefined}
                 />
               ))}
               

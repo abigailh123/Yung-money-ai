@@ -9,3 +9,5 @@ chardet
 fastapi
 uvicorn
 scrapingant-client
+elevenlabs
+httpx

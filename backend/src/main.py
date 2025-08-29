@@ -1,8 +1,10 @@
 # Importing all the necessary modules
 import os
+import io
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -13,6 +15,8 @@ from langchain_core.tools import tool
 from langchain_core.output_parsers import PydanticOutputParser
 from tools.budget import create_budget_tool
 from utils.db import embeddings as embeddings_collection
+from elevenlabs import VoiceSettings
+from elevenlabs.client import ElevenLabs
 
 # Load the environment variables
 load_dotenv()
@@ -37,6 +41,9 @@ llm = ChatOpenAI(model="gpt-4o")
 
 # Create the OpenAI embeddings  
 embeddings = OpenAIEmbeddings()
+
+# Initialize ElevenLabs client
+elevenlabs_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
 
 # Get the vector store
 vector_store = MongoDBAtlasVectorSearch(
@@ -128,6 +135,11 @@ class ChatRequest(BaseModel):
     session_id: str | None = None
 
 
+class TTSRequest(BaseModel):
+    text: str
+    voice_id: str = "pNInz6obpgDQGcFmaJgB"  # Default voice (Adam)
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -166,6 +178,36 @@ async def history(session_id: str):
         content = getattr(m, "content", "")
         messages.append({"id": f"{session_id}-{idx}", "role": role, "content": content})
     return {"messages": messages}
+
+
+# Create the text-to-speech endpoint
+@app.post("/tts")
+async def text_to_speech(req: TTSRequest):
+    try:
+        # Generate speech using ElevenLabs
+        response = elevenlabs_client.text_to_speech.convert(
+            voice_id=req.voice_id,
+            text=req.text,
+            voice_settings=VoiceSettings(
+                stability=0.0,
+                similarity_boost=1.0,
+                style=0.0,
+                use_speaker_boost=True,
+            ),
+        )
+        
+        # Convert the generator to bytes
+        audio_bytes = b"".join(response)
+        
+        # Return as streaming response
+        return StreamingResponse(
+            io.BytesIO(audio_bytes),
+            media_type="audio/mpeg",
+            headers={"Content-Disposition": "attachment; filename=speech.mp3"}
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating speech: {str(e)}")
 
 
 if __name__ == "__main__":
